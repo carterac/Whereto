@@ -1,4 +1,9 @@
 Whereto::Application.routes.draw do
+
+  root :to => 'pages#home'
+
+  match '/home', :to => 'pages#home'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

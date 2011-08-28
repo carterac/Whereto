@@ -1,0 +1,23 @@
+<script type="text/javascript">
+  navigator.geolocation.getCurrentPosition(getLocation, unknownLocation);
+ 
+  function getLocation(pos)
+  {
+    var latitde = pos.coords.latitude;
+    var longitude = pos.coords.longitude;
+    alert('Your current coordinates (latitide,longitude) are : ' + latitde + ', ' + longitude);
+  }
+  function unknownLocation()
+  {
+    alert('Could not find location');
+  }
+</script>
+
+<table>
+	<%= @text['response']['groups'][0]['items'].each do |i| %>
+		
+		<tr><td>Name:</td><td><%= i['name'] %></td><td>Here Now:</td><td><%= get_here_now(i['id'])['response']['hereNow']['count']%></td> </tr>
+		
+	<% end %>
+	
+</table>
