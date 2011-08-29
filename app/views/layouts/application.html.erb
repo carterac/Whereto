@@ -2,8 +2,10 @@
 <html>
 <head>
   <title><%= title %></title>
-  <%= stylesheet_link_tag    "application" %>
+  <%= stylesheet_link_tag    "custom" %>
   <%= javascript_include_tag "application" %>
+  <meta name="viewport"  content="width=device-width,  minimum-scale=1.0, maximum-scale=1.0" />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
 </head>
 <body>
 		<%= render 'layouts/header' %>
