@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  foursquare_id: 1
+  f_name: MyString
+  l_name: MyString
+  gender: MyString
+  photo: MyString
+  home_city: MyString
+
+two:
+  foursquare_id: 1
+  f_name: MyString
+  l_name: MyString
+  gender: MyString
+  photo: MyString
+  home_city: MyString

@@ -14,10 +14,24 @@
 </script>
 
 <table>
-	<%= @text['response']['groups'][0]['items'].each do |i| %>
+	<% trending({:ll => '40.723291,-73.991815'})["response"]["venues"].each do |i| %>
 		
-		<tr><td>Name:</td><td><%= i['name'] %></td><td>Here Now:</td><td><%= get_here_now(i['id'])['response']['hereNow']['count']%></td> </tr>
+		<% i['categories'].each do |j| %>
 		
+			<% if j['name'] == "Bar" || j['name'] == "Sports Bar" || j['name'] == "Dive Bar" || j['name'] == "Pub" || j['name'] == "Restaurant" %>
+				<tr><td><%= i['name'] %></td><td><%= i['location']['address'] %></td><td><%= i['hereNow']['count'] %></td></tr>
+				<% if i['hereNow']['count'] > 0 %>
+					<% herenow(i['id'])['response']['hereNow']['items'].each do |k| %>
+					
+						<% if k['user']['gender'] == 'female' %>
+							<tr><td>----></td><td><img src="<%= k['user']['photo'] %>" width="25"/></td><td><%= k['user']['firstName'] %></td><td><%= k['user']['lastName'] %></td><td><%= k['user']['gender'] %></td></tr>
+						<% end %>
+					
+					<% end %>
+				<% end %>
+			<% end %>
+			
+		<% end %>
 	<% end %>
-	
+		
 </table>

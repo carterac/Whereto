@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  foursquare_id: 1
+  name: MyString
+  address: MyString
+  city: MyString
+  state: MyString
+  zip: MyString
+  lat: 1.5
+  lng: 1.5
+
+two:
+  foursquare_id: 1
+  name: MyString
+  address: MyString
+  city: MyString
+  state: MyString
+  zip: MyString
+  lat: 1.5
+  lng: 1.5
