@@ -33,5 +33,14 @@
 			
 		<% end %>
 	<% end %>
-		
+	
 </table>
+
+<div class="db_search">
+<h2>This will be all checkins for a particular day.</h2>
+<% get_all_checkins_on(2011, 8, 28).each do |i| %>
+
+<%= i.venue.name %> - <%= i.patron.f_name %><br/>
+
+<% end %>
+</div>

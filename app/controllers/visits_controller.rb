@@ -11,7 +11,7 @@ class PagesController < ApplicationController
 
     oauth_key = 'client_id'
     oauth_secret = 'client_secret'
-
+    
   end
   
 end

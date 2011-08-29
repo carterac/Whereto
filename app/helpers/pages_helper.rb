@@ -2,7 +2,12 @@ require 'net/https'
 
 module PagesHelper
 	
-	
+	def get_all_checkins_on(year, month, day) #format should be YYYY-MM-DD
+		target_day = Time.local(year, month, day, '12:00:00')
+		day_start = target_day.to_i
+		day_end = day_start + 86400		
+		@visits = Visit.where(:fs_created_at => day_start..day_end).all
+	end
 	
 	def perform_graph_request(endpoint, params = {}, method = "get")
 		@access_token = '2MBSVSBZNE5LHAA4RKQNXZI1Q30BXD1PR12ALR12KQTPLBF1'
