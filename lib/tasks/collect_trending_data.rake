@@ -39,7 +39,7 @@ namespace :db do
 
         good_category = 0
         i['categories'].each do |j|
-    		  if j['name'] == "Bar" || j['name'] == "Sports Bar" || j['name'] == "Dive Bar" || j['name'] == "Pub" || j['name'] == "Restaurant"
+    		  if j['name'] == "Bar" || j['name'] == "Sports Bar" || j['name'] == "Dive Bar" || j['name'] == "Pub" || j['name'] == "Restaurant" || j['name'] == "Nightclub"
             good_category = 1
           end  
         end
