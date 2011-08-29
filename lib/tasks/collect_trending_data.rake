@@ -4,7 +4,13 @@ include PagesHelper
 namespace :db do
   desc "Regularly scheduled call to FS for data."
   task :collect_trending_data => :environment do
-  trending({:ll => '40.723291,-73.991815'})["response"]["venues"].each do |i|
+    
+#  Rake::Task['db:reset'].invoke
+    
+  @madison_sqaure_park_ll = '40.742047,-73.987995'
+  @houston_bowery_ll = '40.723291,-73.991815'
+    
+  trending({:ll => @madison_sqaure_park_ll})["response"]["venues"].each do |i|
 		
 		i['categories'].each do |j|
 	
@@ -48,12 +54,25 @@ namespace :db do
 										
 										cur_patron = Patron.find_by_foursquare_id(k['user']['id'])
 										
+										cur_visit = Visit.find_by_patron_id(cur_patron.id)
 										
-										Visit.create(
-											:patron_id => cur_patron.id,
-											:venue_id => cur_venue.id,
-											:fs_created_at => k['createdAt']					
-										)
+										if cur_visit.nil?
+										  Visit.create(
+											  :patron_id => cur_patron.id,
+											  :venue_id => cur_venue.id,
+											  :fs_created_at => k['createdAt']					
+										    )
+										else
+										  if cur_visit.fs_created_at == k['createdAt'] || cur_visit.venue_id == cur_venue.id
+										    
+										  else 
+  										  Visit.create(
+  											  :patron_id => cur_patron.id,
+  											  :venue_id => cur_venue.id,
+  											  :fs_created_at => k['createdAt']					
+  										    )
+										  end
+										end
 										
 									end
 								end								

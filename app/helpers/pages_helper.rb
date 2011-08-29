@@ -51,7 +51,7 @@ module PagesHelper
 	
 	def trending(params={})
 		params = {:ll => "40.723291,-73.991815",
-				:radius => "1000",
+				:radius => "2000",
                 :limit=>"50"}.merge!(params)
 
 		perform_graph_request("venues/trending", params)
