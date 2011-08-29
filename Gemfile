@@ -9,6 +9,7 @@ gem 'sqlite3'
 gem 'foursquare-api'
 gem 'jquery-rails'
 gem 'json'
+gem 'rake', '0.8.7'
 
 group :production do
 # gem 'pg'
