@@ -7,13 +7,13 @@
 /*--- iPhone only CSS here ---*/
 
 
-body{  -webkit-text-size-adjust:none;  font-family:Helvetica, Arial, Verdana, sans-serif;  padding:5px;}
+body{  -webkit-text-size-adjust:none;  font-family:Helvetica, Arial, Verdana, sans-serif;  padding:5px; width:480px;}
 
 .trending_list ul{list-style-type:none;margin:0px;padding:0px;}
 .trending_list ul li{list-style-type:none;display:block;margin:0px;padding:0px;}
 .trending_list ul li.venue {height:40px;line-height:40px;background:#eeeeee;color:#555555;margin-bottom:10px;padding:10px;}
 .trending_list ul li.venue span.rank{font-size:18px; font-weight:bold;}
-.trending_list ul li.venue span.view-button{cursor:pointer;position:absolute;right:20px;background:#ab3333;color:#ddddff;height:26px;margin:2px;border:1px solid #4444ff;line-height:26px;padding:5px;}
+.trending_list ul li.venue span.view-button{cursor:pointer;display:inline-block;float:right;right:0px;background:#ab3333;color:#ddddff;height:26px;width:75px;margin:2px;border:1px solid #4444ff;line-height:26px;padding:5px;text-align:center;}
 .trending_list ul li.venue span.view-button:hover{background:#2277ee;color:#222222;}
 .trending_list ul.patron_list {margin-left:50px;}
 .trending_list ul.patron_list li.patron {height:75px;line-height:75px;margin-bottom:20px;}
