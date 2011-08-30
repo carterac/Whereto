@@ -1,8 +1,16 @@
 <div class="db_search">
-<h2>This will be all checkins for a particular day.</h2>
-<% get_all_checkins_on(2011, 8, 28).each do |i| %>
+<h2>Today's Checkins So Far.</h2>
 
-<%= i.venue.name %> - <%= i.patron.f_name %><br/>
+<% 
+t = Time.now
+cur_year = t.year
+cur_month = t.month
+cur_day = t.day
+get_all_checkins_on(cur_year, cur_month, cur_day).each do |i| 
+
+%>
+
+<%= i.venue.name %> - <%= i.patron.f_name %> - <%= (Time.now.to_i - i.fs_created_at)/60 %> minutes ago.<br/>
 
 <% end %>
 </div>
