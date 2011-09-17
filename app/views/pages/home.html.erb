@@ -1,6 +1,3 @@
-<script type="text/javascript">
-  navigator.geolocation.getCurrentPosition(getLocation, unknownLocation);
-
 <div class="trending_list">
 <ul class="venue_list">
 	<% 
@@ -18,10 +15,6 @@
 		</ul>		
 
 	<% else %>
-	
-		<ul class="venue_list">
-			<li class="venue">  trending venues found</li>
-		</ul>
 
 	  <% trending_data["response"]["venues"].each do |i|
 		
