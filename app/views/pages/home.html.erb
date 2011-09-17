@@ -1,42 +1,39 @@
 <script type="text/javascript">
   navigator.geolocation.getCurrentPosition(getLocation, unknownLocation);
- 
-  function getLocation(pos)
-  {
-    var latitde = pos.coords.latitude;
-    var longitude = pos.coords.longitude;
-    alert('Your current coordinates (latitide,longitude) are : ' + latitde + ', ' + longitude);
-  }
-  function unknownLocation()
-  {
-    alert('Could not find location');
-  }
-</script>
 
 <div class="trending_list">
 <ul class="venue_list">
 	<% 
-	
+
 	rank = 1
 	trending_data = trending({:ll => '40.718493,-73.993177', :radius => 3000})
+	categories = ["Bar","Sports Bar","Dive Bar","Pub","Restaurant","Nightclub"]
 	
 	%>
-	
+
 	<% if trending_data["response"]["venues"].empty? %>
-		
+
 		<ul class="venue_list">
 			<li class="venue">People are LAME!</li>
 		</ul>		
-		
+
 	<% else %>
 	
-	  <% trending_data["response"]["venues"].each do |i| %>
+		<ul class="venue_list">
+			<li class="venue">  trending venues found</li>
+		</ul>
+
+	  <% trending_data["response"]["venues"].each do |i|
 		
-		<% i['categories'].each do |j| %>
-		
-			<% if j['name'] == "Bar" || j['name'] == "Sports Bar" || j['name'] == "Dive Bar" || j['name'] == "Pub" || j['name'] == "Restaurant" || j['name'] == "Nightclub" %>
-			
-			
+			good_category = 0
+			i['categories'].each do |j|
+	  	  		if categories.include?(j['name'])
+    		  		good_category = 1
+  				end  
+			end
+          
+      if good_category == 1 %>
+
 				<% patron_list = herenow(i['id'])
 					chick_count = 0
 					patron_list['response']['hereNow']['items'].each do |k| 
@@ -45,30 +42,26 @@
 						end
 					end
 				%>
-				
-				
-				<li class="venue round shadow"><span class="rank"><%= rank %></span> <%= i['name'] %> <%= i['location']['address'] %> | <%= i['hereNow']['count'] %> Patrons | <%= format("%.1f\n",(chick_count.to_f/(i['hereNow']['count']).to_f)*100)%>% Chicks<span id="<%= i['id'] %>" class="view-button round shadow">View Chicks</span></li>
+
+
+				<li class="venue round shadow"><span class="rank"><%= rank %></span> <%= i['name'] %> <%= i['location']['address'] %> | <%= i['hereNow']['count'] %> Patrons | <%= format("%.1f\n",(chick_count.to_f/(i['hereNow']['count']).to_f)*100)%>% Girls<span id="<%= i['id'] %>" class="view-button round shadow">View Chicks</span></li>
 				<% rank +=1 %>
 				<% if i['hereNow']['count'] > 0 %>
 					<ul class="<%= i['id'] %> patron_list hidden">
 					<% patron_list['response']['hereNow']['items'].each do |k| %>
-					
+
 						<% if k['user']['gender'] == 'female' %>
 							<li class="patron"><img src="<%= k['user']['photo'] %>" width="75"/><span class="name"><%= k['user']['firstName'] %> <%= k['user']['lastName'] %></span></li>
 						<% end %>
-					
+
 					<% end %>
 					</ul>
 				<% end %>
-			
-			<% break %>
-			
+
+				
+
 			<% end %>
-			
-			
-			
-		<% end %>
-		
+
 	  <% end %>
 	<% end %>
 </ul>
@@ -86,4 +79,3 @@ $(document).ready(function(){
 });
 
 </script>
-

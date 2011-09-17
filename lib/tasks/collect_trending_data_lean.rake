@@ -3,14 +3,14 @@ include PagesHelper
 
 namespace :db do
   desc "Regularly scheduled call to FS for data."
-  task :collect_trending_data => :environment do
+  task :collect_trending_data_lean => :environment do
+    
+    venues_this_hour = Array.new
+    multiple_venues = 0
+    api_calls = 0
 
     @madison_square_park_ll = '40.742047,-73.987995'
     @houston_bowery_ll = '40.723291,-73.991815'
-    
-    api_calls = 0
-    
-    
 
     nyc_hoods = {
       "east_village" => '40.726641,-73.981794',
@@ -27,33 +27,39 @@ namespace :db do
       "the_claremount" => '40.731244,-73.986669'
     }
     
-    nyc_hoods.each do |key, value| 
+    # For each NYC hood, look at all trending venues
+    nyc_hoods.each do |key, value|       
           
       if key == "prospect_heights_use2kradius" || key == "williamsburg_use2kradius" || key == "times_square_use2kradius"
         radius = 2000
       else
         radius = 1000
       end
-
+    
       # e.g. "east_village (radius = 1000):"
       puts key + ' (radius = ' + radius.to_s + '):'
       
       api_calls += 1
       trending({:ll => value, :radius => radius})["response"]["venues"].each do |i|
+        
+        # Only look at venues that haven't already been discovered during this search
+        if venues_this_hour.include?(i['id'])
+          multiple_venues += 1
+        else
+          venues_this_hour.push(i['id'])
 
-    		categories = ["Bar","Sports Bar","Dive Bar","Pub","Restaurant","Nightclub"]
-
-  			good_category = 0
-  			i['categories'].each do |j|
-	  		  if categories.include?(j['name'])
-      		  good_category = 1
-    			end  
-  			end
+          # Only look at venues that are in a relevant categories
+    		  categories = ["Bar","Sports Bar","Dive Bar","Pub","Restaurant","Nightclub"]
+    			good_category = 0
+    			i['categories'].each do |j|
+  	  		  if categories.include?(j['name'])
+        		  good_category = 1
+      			end  
+    			end
+          if good_category == 1
             
-        if good_category == 1
-  			    #check to see if venue is already in the database:
+  			    # If venue is new, add it to the DB
       			if Venue.find_by_foursquare_id(i['id']).nil?
-
         	  	Venue.create(
   							:foursquare_id => i['id'],
   							:name => i['name'],
@@ -68,13 +74,14 @@ namespace :db do
   					end	
 
   					cur_venue = Venue.find_by_foursquare_id(i['id'])
+  					
+  					puts "\t#{i['hereNow']['count']} at " + cur_venue.name
 
-  					if i['hereNow']['count'] > 0
-  					  puts "\t#{i['hereNow']['count']} at " + cur_venue.name
+            # For each checkin found at a venue, save it to the DB
+            api_calls += 1  
+  					herenow(i['id'])['response']['hereNow']['items'].each do |k|
   					  
-  					  api_calls += 1
-  						herenow(i['id'])['response']['hereNow']['items'].each do |k|
-
+  					  # If patron is new, add them to the DB
   					  if Patron.find_by_foursquare_id(k['user']['id']).nil?
           			Patron.create(
           				:foursquare_id => k['user']['id'],
@@ -109,12 +116,17 @@ namespace :db do
           		  end
           		end
   					end
-  				end		
-        end
+          end
+        end	  
+          
+	    # This is the end of the "for each venue in trending" loop
 	    end 
-    
+	    
     	puts "\tTotal API calls = " + api_calls.to_s
-    
+	    
+	  # This is the end of the "for each NYC hood" loop  
     end
+    
+    puts "\nFound " + multiple_venues.to_s + " multiple venues"
   end
 end

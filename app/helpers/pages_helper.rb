@@ -9,6 +9,13 @@ module PagesHelper
 		@visits = Visit.where(:fs_created_at => day_start..day_end).all
 	end
 	
+	def predict_checkins(time)
+	  t = time
+	  tminus2hours = time - 2.hours
+		@visits = Visit.where(:fs_created_at => day_start..day_end).all	  
+  end
+	
+	
 	def perform_graph_request(endpoint, params = {}, method = "get")
 		@access_token = '2MBSVSBZNE5LHAA4RKQNXZI1Q30BXD1PR12ALR12KQTPLBF1'
 		@base_url = "https://api.foursquare.com/v2/"
