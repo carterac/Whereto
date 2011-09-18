@@ -1,0 +1,17 @@
+<div class="tags">
+
+	<% 
+	@venues.each do |i| 
+		venue_id = i.foursquare_id	
+	%>
+	
+		<%	get_venue(venue_id)["response"]["venue"]["tags"].each do |j| %>
+			
+			
+			<%= j %><br />
+			
+			
+		<% end %>
+	<% end %>
+	
+</div>
