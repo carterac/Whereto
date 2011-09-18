@@ -16,8 +16,8 @@ body{  -webkit-text-size-adjust:none;  font-family:Helvetica, Arial, Verdana, sa
 .trending_list ul li.venue span.view-button{cursor:pointer;display:inline-block;float:right;right:0px;background:#ab3333;color:#ddddff;height:26px;width:150px;margin:2px;border:1px solid #4444ff;line-height:26px;padding:5px;text-align:center;}
 .trending_list ul li.venue span.view-button:hover{background:#2277ee;color:#222222;}
 .trending_list ul.patron_list {margin-left:50px;}
-.trending_list ul.patron_list li.patron {height:75px;line-height:75px;margin-bottom:20px;font-size:10px;}
-.trending_list ul.patron_list li.patron span.name {height:75px;line-height:75px;font-weight:bold;color:#ff0000;text-align:center;font-size:10px;}
+.trending_list ul.patron_list li.patron {height:75px;line-height:75px;margin-bottom:20px;font-size:14px;}
+.trending_list ul.patron_list li.patron span.name {height:75px;line-height:75px;font-weight:bold;color:#ff0000;text-align:center;font-size:14px;}
 .trending_list ul.patron_list li.patron img{border:3px solid #666666;vertical-align:middle;}
 .trending_list ul.hidden{display:none;}
 

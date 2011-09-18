@@ -46,9 +46,11 @@
 				%>
 
 
-				<li class="venue round shadow"><span class="rank"><%= rank %></span> <%= i['name'] %> <%= i['location']['address'] %> | <%= i['hereNow']['count'] %> Patrons | <%= format("%.1f\n",girl_count_w.to_f+guy_count_w.to_f) %> Real Patrons | 
-					<%= format("%.1f\n",(girl_count.to_f/(i['hereNow']['count']).to_f)*100) %>% Girls 
-					 | fancy way: <%= format("%.1f\n",(girl_count_w.to_f/(girl_count_w.to_f+guy_count_w.to_f)*100)) %>% Girls
+				<li class="venue round shadow"><span class="rank"><%= rank %></span> 
+						<a href="http://maps.google.com/maps?q=<%= i['location']['address'].gsub(',','').split( /  */ ).join(',') %>" target="_blank"/><%= i['name'] %> <%= i['location']['address'] %></a>
+						| <%= i['hereNow']['count'] %> Patrons | <%= format("%.1f\n",girl_count_w.to_f+guy_count_w.to_f) %> Real Patrons 
+						| <%= format("%.1f\n",(girl_count.to_f/(i['hereNow']['count']).to_f)*100) %>% Girls 
+						| <%= format("%.1f\n",(girl_count_w.to_f/(girl_count_w.to_f+guy_count_w.to_f)*100)) %>% Girls (Actual)
 					
 					
 					<span id="<%= i['id'] %>" class="view-button round shadow">View Girls</span></li>
@@ -58,7 +60,7 @@
 					<% patron_list['response']['hereNow']['items'].each do |k| %>
 
 						<% if k['user']['gender'] == 'female' %>
-							<li class="patron"><img src="<%= k['user']['photo'] %>" width="75"/><span class="name"><%= k['user']['firstName'] %> <%= k['user']['lastName'] %> Checked in <%= ((Time.now.to_i - k['createdAt'])/60) %> minutes ago</span></li>
+							<li class="patron"><img src="<%= k['user']['photo'] %>" width="75"/><span class="name"><%= k['user']['firstName'] %> <%= k['user']['lastName'] %> </span> - Checked in <%= ((Time.now.to_i - k['createdAt'])/60) %> minutes ago</li>
 						<% end %>
 
 					<% end %>
