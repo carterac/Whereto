@@ -28,23 +28,37 @@
       if good_category == 1 %>
 
 				<% patron_list = herenow(i['id'])
-					chick_count = 0
-					patron_list['response']['hereNow']['items'].each do |k| 
+					girl_count_w = 0
+					guy_count_w = 0
+					girl_count = 0
+					guy_count = 0
+					patron_list['response']['hereNow']['items'].each do |k|
+						m = ((Time.now.to_i - k['createdAt'])/60)
+						p = 1-1/(1+1*2**(-(Float(m)/9-6))) 
 						if k['user']['gender'] == 'female'
-							chick_count += 1
+							girl_count_w += p
+							girl_count += 1
+						else
+							guy_count_w += p
+							guy_count += 1
 						end
 					end
 				%>
 
 
-				<li class="venue round shadow"><span class="rank"><%= rank %></span> <%= i['name'] %> <%= i['location']['address'] %> | <%= i['hereNow']['count'] %> Patrons | <%= format("%.1f\n",(chick_count.to_f/(i['hereNow']['count']).to_f)*100)%>% Girls<span id="<%= i['id'] %>" class="view-button round shadow">View Chicks</span></li>
+				<li class="venue round shadow"><span class="rank"><%= rank %></span> <%= i['name'] %> <%= i['location']['address'] %> | <%= i['hereNow']['count'] %> Patrons | <%= format("%.1f\n",girl_count_w.to_f+guy_count_w.to_f) %> Real Patrons | 
+					<%= format("%.1f\n",(girl_count.to_f/(i['hereNow']['count']).to_f)*100) %>% Girls 
+					 | fancy way: <%= format("%.1f\n",(girl_count_w.to_f/(girl_count_w.to_f+guy_count_w.to_f)*100)) %>% Girls
+					
+					
+					<span id="<%= i['id'] %>" class="view-button round shadow">View Girls</span></li>
 				<% rank +=1 %>
 				<% if i['hereNow']['count'] > 0 %>
 					<ul class="<%= i['id'] %> patron_list hidden">
 					<% patron_list['response']['hereNow']['items'].each do |k| %>
 
 						<% if k['user']['gender'] == 'female' %>
-							<li class="patron"><img src="<%= k['user']['photo'] %>" width="75"/><span class="name"><%= k['user']['firstName'] %> <%= k['user']['lastName'] %></span></li>
+							<li class="patron"><img src="<%= k['user']['photo'] %>" width="75"/><span class="name"><%= k['user']['firstName'] %> <%= k['user']['lastName'] %> Checked in <%= ((Time.now.to_i - k['createdAt'])/60) %> minutes ago</span></li>
 						<% end %>
 
 					<% end %>
