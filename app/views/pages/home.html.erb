@@ -45,9 +45,10 @@
 					end
 				%>
 
+		<% if girl_count_w.to_f/(girl_count_w.to_f+guy_count_w.to_f)*100 > 35 && girl_count_w.to_f+guy_count_w.to_f > 2 %>	
 
 				<li class="venue round shadow"><span class="rank"><%= rank %></span> 
-						<a href="http://maps.google.com/maps?q=<%= i['location']['address'].gsub(',','').split( /  */ ).join(',') %>" target="_blank"/><%= i['name'] %> <%= i['location']['address'] %></a>
+						<a href="http://maps.google.com/maps?q=<%= i['location']['address'].gsub(',','').split( /  */ ).join(',') %>&new&york&ny" target="_blank"/><%= i['name'] %> <%= i['location']['address'] %></a>
 						| <%= i['hereNow']['count'] %> Patrons | <%= format("%.1f\n",girl_count_w.to_f+guy_count_w.to_f) %> Real Patrons 
 						| <%= format("%.1f\n",(girl_count.to_f/(i['hereNow']['count']).to_f)*100) %>% Girls 
 						| <%= format("%.1f\n",(girl_count_w.to_f/(girl_count_w.to_f+guy_count_w.to_f)*100)) %>% Girls (Actual)
@@ -65,6 +66,8 @@
 
 					<% end %>
 					</ul>
+					
+					<% end %>
 				<% end %>
 
 				
