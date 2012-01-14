@@ -2,15 +2,15 @@
 <h2>Today's Checkins So Far.</h2>
 
 <% 
-t = Time.now
-cur_year = t.year
-cur_month = t.month
-cur_day = t.day
-get_all_checkins_on(cur_year, cur_month, cur_day).each do |i| 
+	t = Time.now
+	cur_year = t.year
+	cur_month = t.month
+	cur_day = t.day
+	today_checkins = get_all_checkins_on(cur_year, cur_month, cur_day)
 
 %>
 
-<%= i.venue.name %> - <%= i.patron.f_name %> - <%= (Time.now.to_i - i.fs_created_at)/60 %> minutes ago.<br/>
+<div class="today">Today's Checkins: <%= today_checkins.count %></div>
+<div class="all_time">Total Checkins: <%= @all_visits_count %>
 
-<% end %>
 </div>

@@ -15,7 +15,8 @@ class PagesController < ApplicationController
   end
   
   def history
-	@title = "History"
+	  @title = "History"
+	  @all_visits_count = Visit.all.count
   end
   
 end
