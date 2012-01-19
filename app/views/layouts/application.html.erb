@@ -3,17 +3,19 @@
 <head>
   <title><%= title %></title>
   <%= stylesheet_link_tag    "custom" %>
+  <%= stylesheet_link_tag "ficostyle" %>
   <%= javascript_include_tag "application" %>
   <meta name="viewport"  content="width=device-width,  minimum-scale=1.0, maximum-scale=1.0" />
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
 </head>
 <body>
+	<div class="iphone_wrapper">
 		<%= render 'layouts/header' %>
-			
-		<%= yield %>
-		
+		<div class="content_wrapper">
+			<%= yield %>
+		</div>
 		<%= render 'layouts/footer' %>
-
+	</div>
 <%= debug(params) if Rails.env.development? %>
 </body>
 </html>

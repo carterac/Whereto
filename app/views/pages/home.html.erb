@@ -1,5 +1,4 @@
 <div class="trending_list">
-<ul class="venue_list">
 	<% 
 
 	rank = 1
@@ -9,13 +8,12 @@
 	%>
 
 	<% if trending_data["response"]["venues"].empty? %>
-		You're not getting laid tonight.
 		<ul class="venue_list">
 			<li class="venue">People are LAME!</li>
 		</ul>		
 
 	<% else %>
-
+		<ul class="venue_list">
 	  <% trending_data["response"]["venues"].each do |i|
 		
 			good_category = 0
@@ -47,25 +45,48 @@
 
 		<% if girl_count_w.to_f/(girl_count_w.to_f+guy_count_w.to_f)*100 > 35 && girl_count_w.to_f+guy_count_w.to_f > 2 %>	
 
-				<li class="venue round shadow"><span class="rank"><%= rank %></span> 
-						<a href="http://maps.google.com/maps?q=<%= i['location']['address'].gsub(',','').split( /  */ ).join(',') %>&new&york&ny" target="_blank"/><%= i['name'] %> <%= i['location']['address'] %></a>
-						| <%= format("%.1f\n",girl_count_w.to_f+guy_count_w.to_f) %> Patrons 
-						| <%= format("%.1f\n",(girl_count_w.to_f/(girl_count_w.to_f+guy_count_w.to_f)*100)) %>% Girls
+				<li class="venue"><span class="rank"><%= rank %></span>
+					<span class="venue_name">
+						<a href="http://maps.google.com/maps?q=<%= i['location']['address'].gsub(',','').split( /  */ ).join('%20') %>&new&york&ny" target="_blank"/><%= i['name'] %></a>
+					</span>
+					<br/>
+					<span class="venue_stats">	
+						<span class="icon people_icon">u</span><%= format("%.1f\n",girl_count_w.to_f+guy_count_w.to_f) %>
+						| <span class="icon graph_icon">C</span><%= format("%.1f\n",(girl_count_w.to_f/(girl_count_w.to_f+guy_count_w.to_f)*100)) %>%
+					</span>
 					
-					
-					<span id="<%= i['id'] %>" class="view-button round shadow">View Girls</span></li>
+					<span id="<%= i['id'] %>" class="icon view-button">E</span>
+				</li>
 				<% rank +=1 %>
+				
+				
 				<% if i['hereNow']['count'] > 0 %>
-					<ul class="<%= i['id'] %> patron_list hidden">
+					<div class="<%= i['id'] %> girl_list hidden">
+					<span id="<%= i['id'] %>" class="icon left_arrow">←</span>
+					<ul class="patron_list" id="<%= i['id'] %>">
+					<% patron_count = 0 %>
 					<% patron_list['response']['hereNow']['items'].each do |k| %>
 
 						<% if k['user']['gender'] == 'female' %>
-							<li class="patron"><img src="<%= k['user']['photo'] %>" width="75"/><span class="name"><%= k['user']['firstName'] %> <%= k['user']['lastName'] %> </span> - Checked in <%= ((Time.now.to_i - k['createdAt'])/60) %> minutes ago</li>
+							<% if patron_count == 0 %>
+								<li class="patron" id="patron_0">
+								<% patron_count += 1 %>							
+							<% else %>
+								<li class="patron hidden" id="patron_<%= patron_count %>">
+								<% patron_count += 1 %>							
+							<% end %>
+									<img src="<%= k['user']['photo'] %>" width="40"/>
+										<div class="patron_data">
+											<span class="name"><%= k['user']['firstName'] %> <%= k['user']['lastName'] %></span>
+								 			<br/>Checked in <%= ((Time.now.to_i - k['createdAt'])/60) %> minutes ago
+										</div>
+								</li>
 						<% end %>
 
 					<% end %>
 					</ul>
-					
+					<span id="<%= i['id'] %>" class="icon right_arrow">→</span>
+					</div>
 					<% end %>
 				<% end %>
 
@@ -75,18 +96,33 @@
 
 	  <% end %>
 	<% end %>
-</ul>
 </div>
 
 <script type="text/javascript">
-
 $(document).ready(function(){
 	$("span.view-button").click(function(){
-		var venue_id = $(this).attr("id");
-		var show_list = "ul." + venue_id;
-		$("ul.patron_list").addClass("hidden");
-		$(show_list).removeClass("hidden");
+		var divid = "div." + $(this).attr("id");
+		$(divid).siblings().addClass("hidden");
+		$(divid).toggle("slow");
 	});
+	
+	var cur_patron = 0;
+	
+	$("span.left_arrow").click(function(){
+		var venid = $(this).attr("id");
+		var cur_list = "ul#" + venid;
+		$(cur_list + " li#patron_" + cur_patron).addClass("hidden");
+		$(cur_list + " li#patron_" + (cur_patron-1)).removeClass("hidden");
+		cur_patron = cur_patron - 1;
+	});
+	
+	$("span.right_arrow").click(function(){
+		var venid = $(this).attr("id");
+		var cur_list = "ul#" + venid;
+		$(cur_list + " li#patron_" + cur_patron).addClass("hidden");
+		$(cur_list + " li#patron_" + (cur_patron+1)).removeClass("hidden");
+		cur_patron = cur_patron + 1;
+	});
+	
 });
-
 </script>

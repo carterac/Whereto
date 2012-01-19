@@ -1,0 +1,72 @@
+/* ICONS
+---------------------------------------------------- */
+
+
+@font-face {
+	font-family: icons;
+	src: url('/images/Fico/fonts/fico.eot');
+	src: url('/images/Fico/fonts/fico.eot?#iefix') format('embedded-opentype'),
+		url('/images/Fico/fonts/fico.ttf') format('truetype'),
+		url('/images/Fico/fonts/fico.svg#Fico') format('svg');
+	}
+
+.icon,
+.icon_generated:before {
+	font-family: icons;
+	font-weight: normal !important;
+	font-style: normal !important;
+	text-transform: none !important;
+	padding-right: 3px;
+	}
+
+.icon_generated {
+	color: red;
+	}
+	.icon_generated:before {
+		content: attr(data-icon);
+		padding-right: 7px;
+		}
+
+
+/* BASICS
+---------------------------------------------------- */
+
+
+p.icons {
+	font-size: 32px;
+	}
+
+
+/* MEDIA QUERIES
+---------------------------------------------------- */
+
+
+@media (min-width: 480px) {
+	body {
+		padding: 0px;
+		}
+	ul li {
+		width: 25%;
+		}	
+	}
+@media (min-width: 600px) {
+	body {
+		font-size: 13px;
+		}
+	ul li {
+		width: 20%;
+		}	
+	}
+@media (min-width: 768px) {
+	body {
+		font-size: 14px;
+		}
+	ul li {
+		width: 16.6%;
+		}	
+	}
+@media (min-width: 960px) {
+	ul li {
+		width: 12.5%;
+		}
+	}
