@@ -103,7 +103,7 @@ $(document).ready(function(){
 	$("span.view-button").click(function(){
 		var divid = "div." + $(this).attr("id");
 		$(divid).siblings().addClass("hidden");
-		$(divid).toggle("slow");
+		$(divid).slideToggle("slow");
 	});
 	
 	var cur_patron = 0;
