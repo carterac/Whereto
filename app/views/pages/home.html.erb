@@ -102,7 +102,7 @@
 $(document).ready(function(){
 	$("span.view-button").click(function(){
 		var divid = "div." + $(this).attr("id");
-		$(divid).siblings().addClass("hidden");
+		$(divid).siblings().hide("slow");
 		$(divid).toggle("slow");
 	});
 	
