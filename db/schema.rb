@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120205202234) do
+ActiveRecord::Schema.define(:version => 20120205210246) do
 
   create_table "patrons", :force => true do |t|
     t.integer   "foursquare_id"
@@ -25,17 +25,31 @@ ActiveRecord::Schema.define(:version => 20120205202234) do
 
   add_index "patrons", ["foursquare_id"], :name => "index_patrons_on_foursquare_id"
 
+  create_table "tags", :force => true do |t|
+    t.string   "tag"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "venues", :force => true do |t|
-    t.string    "foursquare_id"
-    t.string    "name"
-    t.string    "address"
-    t.string    "city"
-    t.string    "state"
-    t.string    "zip"
-    t.float     "lat"
-    t.float     "lng"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
+    t.string   "foursquare_id"
+    t.string   "name"
+    t.string   "address"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.float    "lat"
+    t.float    "lng"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "daily_trend_count"
+    t.datetime "daily_trend_time"
+    t.integer  "weekly_trend_count"
+    t.datetime "weekly_trend_time"
+    t.integer  "monthly_trend_count"
+    t.datetime "monthly_trend_time"
+    t.integer  "yearly_trend_count"
+    t.datetime "yearly_trend_time"
   end
 
   add_index "venues", ["foursquare_id"], :name => "index_venues_on_foursquare_id"

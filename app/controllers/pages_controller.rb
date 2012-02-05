@@ -19,4 +19,8 @@ class PagesController < ApplicationController
 	  @all_visits_count = Visit.all.count
   end
   
+  def tags
+    @venues = Venue.limit(250).offset(500) #On third pass...offsetting by 500
+  end
+  
 end

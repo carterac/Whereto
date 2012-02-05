@@ -4,6 +4,7 @@ Whereto::Application.routes.draw do
   
   match '/history', :to => 'pages#history'
   match '/home', :to => 'pages#home'
+  match '/tags', :to => 'pages#tags'
   match '/dbcounts', :to => 'pages#dbcounts'
 
   # The priority is based upon order of creation:

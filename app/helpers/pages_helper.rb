@@ -42,7 +42,7 @@ module PagesHelper
 	
 	def herenow(venue_id)
       perform_graph_request("venues/#{venue_id}/herenow", {})
-    end
+  end
 	
 	def search(params={})
       params = {:ll => "37.792694,-122.409325",
@@ -62,6 +62,10 @@ module PagesHelper
               :limit=>"50"}.merge!(params)
 
 		perform_graph_request("venues/trending", params)
-    end
+  end
+  
+	def get_venue(venue_id)
+      perform_graph_request("venues/#{venue_id}", {})
+  end
 	
 end

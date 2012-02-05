@@ -71,6 +71,70 @@ namespace :db do
 
   					if i['hereNow']['count'] > 0
   					  puts "\t#{i['hereNow']['count']} at " + cur_venue.name
+  					  #Here is code that adds a trending point to daily, weekly, monthly, and yearly trending points. The numbers are reset if the updated_at is > timespan
+              last_updated_hours = (DateTime.now.to_i - cur_venue.daily_trend_time.to_i)/(60*60)#This is the number of hours since an update
+  					  last_updated_days_1 = (DateTime.now.to_i - cur_venue.weekly_trend_time.to_i)/(60*60*24) #This gives us the number of days since the venue was last updated.
+              last_updated_days_2 = (DateTime.now.to_i - cur_venue.monthly_trend_time.to_i)/(60*60*24) #This gives us the number of days since the venue was last updated.
+              last_updated_days_3 = (DateTime.now.to_i - cur_venue.yearly_trend_time.to_i)/(60*60*24)  #This gives us the number of days since the venue was last updated.
+  					  daily_trend_count = cur_venue.daily_trend_count
+  					  weekly_trend_count = cur_venue.weekly_trend_count
+  					  monthly_trend_count = cur_venue.monthly_trend_count
+  					  yearly_trend_count = cur_venue.yearly_trend_count
+  					  if(last_updated_hours>=24)
+  					    daily_trend_count = 1
+  					    daily_trend_time = DateTime.now
+  					    cur_venue.update_attributes(
+  					      :daily_trend_count => daily_trend_count,
+  					      :daily_trend_time => daily_trend_time
+  					    )
+					    else
+					      daily_trend_count += 1
+					      cur_venue.update_attributes(
+  					      :daily_trend_count => daily_trend_count
+  					    )
+					    end
+					    
+					    if(last_updated_days_2>30)#Change the monthly count to 0 before adding to the count.
+  					    monthly_trend_count = 1
+  					    monthly_trend_time = DateTime.now
+  					    cur_venue.update_attributes(
+  					      :monthly_trend_count => monthly_trend_count,
+  					      :monthly_trend_time => monthly_trend_time
+  					    )
+					    else  					    
+					      monthly_trend_count += 1
+					      cur_venue.update_attributes(
+  					      :monthly_trend_count => monthly_trend_count
+  					    )
+					    end
+					    
+					    if(last_updated_days_1>7)
+  					    weekly_trend_count = 1
+  					    weekly_trend_time = DateTime.now
+  					    cur_venue.update_attributes(
+  					      :weekly_trend_count => weekly_trend_count,
+  					      :weekly_trend_time => weekly_trend_time
+  					    )
+					    else
+					      weekly_trend_count += 1
+					      cur_venue.update_attributes(
+  					      :weekly_trend_count => weekly_trend_count
+  					    )
+					    end
+					    
+					    if(last_updated_days_3>=365)
+  					    yearly_trend_count = 1
+  					    yearly_trend_time = DateTime.now
+  					    cur_venue.update_attributes(
+  					      :yearly_trend_count => yearly_trend_count,
+  					      :yearly_trend_time => yearly_trend_time
+  					    )
+					    else  					    
+					      yearly_trend_count += 1
+					      cur_venue.update_attributes(
+  					      :yearly_trend_count => yearly_trend_count
+  					    )
+					    end
   					  
   					  api_calls += 1
   						herenow(i['id'])['response']['hereNow']['items'].each do |k|

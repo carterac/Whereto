@@ -5,4 +5,6 @@ class Venue < ActiveRecord::Base
 									:uniqueness => { :case_sensitive => false }
 	
 	validates :name, 				:presence => true
+	
+  default_scope :order => 'name ASC'
 end
