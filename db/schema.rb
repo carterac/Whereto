@@ -10,38 +10,45 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110828231218) do
+ActiveRecord::Schema.define(:version => 20120205202234) do
 
   create_table "patrons", :force => true do |t|
-    t.integer  "foursquare_id"
-    t.string   "f_name"
-    t.string   "l_name"
-    t.string   "gender"
-    t.string   "photo"
-    t.string   "home_city"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer   "foursquare_id"
+    t.string    "f_name"
+    t.string    "l_name"
+    t.string    "gender"
+    t.string    "photo"
+    t.string    "home_city"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
+
+  add_index "patrons", ["foursquare_id"], :name => "index_patrons_on_foursquare_id"
 
   create_table "venues", :force => true do |t|
-    t.string   "foursquare_id"
-    t.string   "name"
-    t.string   "address"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zip"
-    t.float    "lat"
-    t.float    "lng"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string    "foursquare_id"
+    t.string    "name"
+    t.string    "address"
+    t.string    "city"
+    t.string    "state"
+    t.string    "zip"
+    t.float     "lat"
+    t.float     "lng"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
+  add_index "venues", ["foursquare_id"], :name => "index_venues_on_foursquare_id"
+
   create_table "visits", :force => true do |t|
-    t.integer  "patron_id"
-    t.integer  "venue_id"
-    t.integer  "fs_created_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer   "patron_id"
+    t.integer   "venue_id"
+    t.integer   "fs_created_at"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
+
+  add_index "visits", ["patron_id"], :name => "index_visits_on_patron_id"
+  add_index "visits", ["venue_id"], :name => "index_visits_on_venue_id"
 
 end
