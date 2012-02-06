@@ -47,7 +47,11 @@
 
 				<li class="venue"><span class="rank"><%= rank %></span>
 					<span class="venue_name">
-						<a href="http://maps.google.com/maps?q=<%= i['location']['address'].gsub(',','').split( /  */ ).join('%20') %>&new&york&ny" target="_blank"/><%= i['name'] %></a>
+						<% unless i['location']['address'].nil? %>
+							<a href="#"><%= i['name'] %></a>
+						<% else %>
+							<a href="http://maps.google.com/maps?q=<%= i['location']['address'].gsub(',','').split( /  */ ).join('%20') %>&new&york&ny" target="_blank"/><%= i['name'] %></a>
+						<% end %>
 					</span>
 					<br/>
 					<span class="venue_stats">	

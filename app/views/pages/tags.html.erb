@@ -1,22 +1,9 @@
 <div class="tags">
 
-	<% 
-	@venues.each do |i| 
-		venue_id = i.foursquare_id	
-	%>
+	<% @tags.each do |i| %>
+		
+		<%= i.tag %><br/>
 	
-		<%	get_venue(venue_id)["response"]["venue"]["tags"].each do |j| %>
-			
-			
-			<%= j %><br />
-			<%
-				Tag.create(
-					:tag => j
-				)	
-			%>
-			
-			
-		<% end %>
 	<% end %>
 	
 </div>

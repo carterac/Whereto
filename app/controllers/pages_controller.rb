@@ -20,7 +20,7 @@ class PagesController < ApplicationController
   end
   
   def tags
-    @venues = Venue.limit(250).offset(500) #On third pass...offsetting by 500
+    @tags = Tag.all
   end
   
 end
