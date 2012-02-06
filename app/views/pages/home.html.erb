@@ -47,7 +47,7 @@
 
 				<li class="venue"><span class="rank"><%= rank %></span>
 					<span class="venue_name">
-						<% unless i['location']['address'].nil? %>
+						<% if i['location']['address'].nil? %>
 							<a href="#"><%= i['name'] %></a>
 						<% else %>
 							<a href="http://maps.google.com/maps?q=<%= i['location']['address'].gsub(',','').split( /  */ ).join('%20') %>&new&york&ny" target="_blank"/><%= i['name'] %></a>
