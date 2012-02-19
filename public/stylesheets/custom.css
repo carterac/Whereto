@@ -21,7 +21,7 @@ footer ul li span.icon {display:inline-block;width:100%;text-align:center;color:
 footer ul li span.icon:hover {color:#878787;}
 
 
-.trending_list ul{list-style-type:none;margin:0px;padding:0px;display:inline-block;width:100%;}
+.trending_list ul{list-style-type:none;margin:0px;padding:0px;display:inline-block;width:100%;margin-top:-4px;}
 .trending_list ul li{list-style-type:none;display:inline-block;margin:0px;padding:0px;width:100%;}
 .trending_list ul li.venue {height:40px;line-height:20px;background:#eeeeee;color:#555555;border-bottom:1px solid #cccccc;}
 .trending_list ul li.venue span.rank{font-size:15px; font-weight:bold;padding-left:3px;padding-right:5px;}
