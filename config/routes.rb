@@ -2,6 +2,8 @@ Whereto::Application.routes.draw do
 
   root :to => 'pages#home'
   
+  resources :venues, :only => [:index, :show]
+  
   match '/history', :to => 'pages#history'
   match '/home', :to => 'pages#home'
   match '/tags', :to => 'pages#tags'

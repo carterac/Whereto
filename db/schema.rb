@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120205210246) do
+ActiveRecord::Schema.define(:version => 20120219212745) do
 
   create_table "patrons", :force => true do |t|
     t.integer   "foursquare_id"
@@ -50,6 +50,12 @@ ActiveRecord::Schema.define(:version => 20120205210246) do
     t.datetime "monthly_trend_time"
     t.integer  "yearly_trend_count"
     t.datetime "yearly_trend_time"
+    t.integer  "frat_score"
+    t.integer  "sport_score"
+    t.integer  "hipster_score"
+    t.integer  "dive_score"
+    t.integer  "exclusive_score"
+    t.integer  "dance_score"
   end
 
   add_index "venues", ["foursquare_id"], :name => "index_venues_on_foursquare_id"

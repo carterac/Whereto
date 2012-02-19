@@ -1,4 +1,3 @@
-<div class="db_search">
 <h2>Today's Checkins So Far.</h2>
 
 <% 
@@ -7,10 +6,7 @@
 	cur_month = t.month
 	cur_day = t.day
 	today_checkins = get_all_checkins_on(cur_year, cur_month, cur_day)
-
 %>
 
 <div class="today">Today's Checkins: <%= today_checkins.count %></div>
 <div class="all_time">Total Checkins: <%= @all_visits_count %>
-
-</div>

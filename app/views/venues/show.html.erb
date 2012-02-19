@@ -1,0 +1,34 @@
+<div class="venue_page">
+<h1><%= @venue.name %></h1>
+
+<div class="venue_type_canvas">
+	<canvas id="venue_radar_graph" width="320" height="320" style="display:inline-block;"></canvas>
+</div>
+
+</div>
+
+<script type="text/javascript">
+
+	//Load the cycle data into the graph
+	var graph_data = [<%= @venue.frat_score %>, <%= @venue.sport_score %>, <%= @venue.hipster_score %>, <%= @venue.dive_score %>, <%= @venue.exclusive_score %>, <%= @venue.dance_score %>];
+	//Change the labels so they fit:
+	var ymax = <%= [@venue.frat_score, @venue.sport_score, @venue.hipster_score, @venue.dive_score, @venue.exclusive_score, @venue.dance_score].max %>;
+	var labels = ['Fratty', 'Sporty', 'Hipster', 'Divey', 'Exclusive', 'Dance'];
+	
+	
+	//Instantiate the new graph
+	var venue_radar_chart = new RGraph.Rose('venue_radar_graph', graph_data);
+	venue_radar_chart.Set('chart.colors.alpha', 0.9);
+	venue_radar_chart.Set('chart.labels', labels);
+	venue_radar_chart.Set('chart.ymax', ymax);
+	venue_radar_chart.Set('chart.text.size', 8);
+	venue_radar_chart.Set('chart.gutter.left', 60);
+	venue_radar_chart.Set('chart.gutter.right', 60);		
+	venue_radar_chart.Set('chart.colors', ['#111111']);
+	//venue_radar_chart.Set('chart.tooltips', tooltips);
+	venue_radar_chart.Set('chart.tooltips.effect', 'expand');
+
+	
+	//Render the graph
+	RGraph.Effects.Fade.In(venue_radar_chart);
+</script>

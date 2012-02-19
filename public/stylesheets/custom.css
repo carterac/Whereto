@@ -9,7 +9,7 @@
 
 body{ display:inline-block;font-family:Helvetica, Arial, Verdana, sans-serif; padding:0px; margin:0px;}
 
-div.iphone_wrapper {position:relative;width:320px;min-height:480px;display:inline-block;background:#a1a1a1;display:inline-block;padding:0px;margin:0px;}
+div.iphone_wrapper {position:relative;width:320px;min-height:480px;display:inline-block;background:#991111;display:inline-block;padding:0px;margin:0px;}
 div.content_wrapper {min-height:400px;background:#991111;padding:0px;margin:0px;}
 
 header h4 {text-align:center;height:40px;background:#1c1c1c;color:#ffffff;padding:0px;margin:0px;line-height:40px;}
@@ -30,6 +30,7 @@ footer ul li span.icon:hover {color:#878787;}
 
 .trending_list ul li.venue span.view-button{cursor:pointer;display:inline-block;float:right;right:0px;color:#aaaaaa;margin-top:-20px;line-height:40px;text-align:center;font-size:20px;border-left:1px solid #aaaaaa;padding-left:15px;padding-right:15px;}
 .trending_list ul li.venue span.view-button:hover{color:#222222;}
+.trending_list ul li.venue span#map_link a {text-decoration:none;}
 
 .trending_list ul.patron_list {display:inline-block;width:100%;padding-top:10px;padding-bottom:10px;height:40px;}
 .trending_list ul.patron_list li.patron {height:60px;line-height:10px;font-size:14px;width:100%;}
@@ -45,3 +46,4 @@ span.right_arrow {position:relative;display:inline-block;width:5%;float:right;fl
 .hidden {display:none;}
 .shadow { box-shadow: 2px 2px 4px #888; -webkit-box-shadow: 2px 2px 4px #888;-moz-box-shadow: 2px 2px 4px #888;}
 .round {-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
+
