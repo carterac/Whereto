@@ -9,7 +9,7 @@
 
 	<% if trending_data["response"]["venues"].empty? %>
 		<ul class="venue_list">
-			<li class="venue">People are LAME!</li>
+			<li class="venue">Boring</li>
 		</ul>		
 
 	<% else %>
@@ -66,7 +66,7 @@
 				
 				<% if i['hereNow']['count'] > 0 %>
 					<div class="<%= i['id'] %> girl_list hidden">
-					<span id="<%= i['id'] %>" class="icon left_arrow">←</span>
+
 					<ul class="patron_list" id="<%= i['id'] %>">
 					<% patron_count = 0 %>
 					<% patron_list['response']['hereNow']['items'].each do |k| %>
@@ -79,17 +79,19 @@
 								<li class="patron hidden" id="patron_<%= patron_count %>">
 								<% patron_count += 1 %>							
 							<% end %>
+								<span id="<%= i['id'] %>" class="icon left_arrow">←</span>
 									<img src="<%= k['user']['photo'] %>" width="40"/>
 										<div class="patron_data">
 											<span class="name"><%= k['user']['firstName'] %> <%= k['user']['lastName'] %></span>
 								 			<br/>Checked in <%= ((Time.now.to_i - k['createdAt'])/60) %> minutes ago
 										</div>
+								<span id="<%= i['id'] %>" class="icon right_arrow">→</span>		
 								</li>
 						<% end %>
 
 					<% end %>
 					</ul>
-					<span id="<%= i['id'] %>" class="icon right_arrow">→</span>
+
 					</div>
 					<% end %>
 				<% end %>
@@ -104,28 +106,36 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+	var cur_patron = 0;	
 	$("span.view-button").click(function(){
 		var divid = "div." + $(this).attr("id");
 		$(divid).siblings().addClass("hidden");
 		$(divid).slideToggle("slow");
+		cur_patron = 0;
 	});
-	
-	var cur_patron = 0;
 	
 	$("span.left_arrow").click(function(){
 		var venid = $(this).attr("id");
 		var cur_list = "ul#" + venid;
-		$(cur_list + " li#patron_" + cur_patron).addClass("hidden");
-		$(cur_list + " li#patron_" + (cur_patron-1)).removeClass("hidden");
-		cur_patron = cur_patron - 1;
+		if($(this).parent().index()==0){
+			
+		}
+		else{
+			$(this).parent().addClass("hidden");
+			$(this).parent().prev().removeClass("hidden");
+		}
 	});
 	
 	$("span.right_arrow").click(function(){
 		var venid = $(this).attr("id");
 		var cur_list = "ul#" + venid;
-		$(cur_list + " li#patron_" + cur_patron).addClass("hidden");
-		$(cur_list + " li#patron_" + (cur_patron+1)).removeClass("hidden");
-		cur_patron = cur_patron + 1;
+		if($(this).parent().index()==$(this).parent().siblings().length-1){
+			
+		}
+		else{
+			$(this).parent().addClass("hidden");
+			$(this).parent().next().removeClass("hidden");
+		}
 	});
 	
 });
