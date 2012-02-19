@@ -14,7 +14,7 @@
 	//Change the labels so they fit:
 	var ymax = <%= [@venue.frat_score, @venue.sport_score, @venue.hipster_score, @venue.dive_score, @venue.exclusive_score, @venue.dance_score].max %>;
 	var labels = ['Fratty', 'Sporty', 'Hipster', 'Divey', 'Exclusive', 'Dance'];
-	
+	var tooltips = ["SAE, AEPi, KA, IDK...whatever that was <br/>back in the day. We were a bit <br/>too wasted then, and we're<br/> a bit too wasted now.","Fuck Tech, go State! <br/>Screw tailgating, we're kegstanding.<br/> Wings, beer, pizza, and a 30 inch LCD<br/>...that's how we do!", "Le Sigh...Corporations Suck. <br/>Fuck the man. That place used <br/>to be cool. Now everyone goes there.<br/> Shaving is sooo passe.", "Yep, I'm broke. PBR a 3-legged<br/> table, and an angry bartender<br/> are good enough at this point.<br/> I'm gonna need to put my place <br/>on Airbnb soon.", "Did you hear? The <br/>Ex-President-of-France-Paris-Hilton<br/>-Kim-Kardashian-Justin-Beiber-<br/>Bottle-Service-Inventing-Oil-Heiress<br/> was totally here last night. <br/>XoXo.", "Thump. Thump. Thump. Thump.<br/> Fist-Pump. Pump. Pump. Pump.<br/> Techno-Electronica-Dubstepping Adventures. <br/>WHAT?" ]
 	
 	//Instantiate the new graph
 	var venue_radar_chart = new RGraph.Rose('venue_radar_graph', graph_data);
@@ -25,7 +25,7 @@
 	venue_radar_chart.Set('chart.gutter.left', 60);
 	venue_radar_chart.Set('chart.gutter.right', 60);		
 	venue_radar_chart.Set('chart.colors', ['#111111']);
-	//venue_radar_chart.Set('chart.tooltips', tooltips);
+	venue_radar_chart.Set('chart.tooltips', tooltips);
 	venue_radar_chart.Set('chart.tooltips.effect', 'expand');
 
 	
