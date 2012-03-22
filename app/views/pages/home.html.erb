@@ -1,14 +1,74 @@
 <script type="text/javascript">
-navigator.geolocation.getCurrentPosition(foundLocation, noLocation);
+var lat = 40.718493; //Global variables for lat/long by default in the E.Village/LES area
+var long = -73.993177;
+var categories = ["Bar","Sports Bar","Dive Bar","Pub","Restaurant","Nightclub"]
 
-function foundLocation(position){
-  var lat = position.coords.latitude;
-  var long = position.coords.longitude;
-  alert('Found location: ' + lat + ', ' + long);
-}
-function noLocation(){
-  alert('Could not find location');
-}
+$(document).ready(function(){
+	navigator.geolocation.getCurrentPosition(foundLocation, noLocation);
+	function foundLocation(position){
+	  var lat = position.coords.latitude;
+	  var long = position.coords.longitude;
+	}
+	function noLocation(){
+	  alert('Could not find location');
+	}
+	//Clear the list in the center
+	$('ul.venue_list').html("");
+	venue_rank = 0;
+	$.ajax({
+		url: 'https://api.foursquare.com/v2/venues/trending?ll='+lat+','+long+'&oauth_token=2MBSVSBZNE5LHAA4RKQNXZI1Q30BXD1PR12ALR12KQTPLBF1',
+		dataType: 'json',
+		async: false,
+		success: 	function(venue_data){
+						var venue_list = venue_data['response']['venues'];
+						$.each(venue_list, 	function(k){
+												venue_rank = venue_rank + 1;
+												alert(venue_list[k]['name']);
+												//First need to narrow down according to the categories array.
+												//Do that later
+												
+												
+												//Second need to collect all the patrons and calculate ratios, survivors, etc.
+												var girl_count_w = 0;
+												var guy_count_w = 0;
+												var girl_count = 0;
+												var guy_count = 0;
+												var current_time = new Date();
+												var epochtime = current_time.getTime();
+												$.ajax({
+													url: 'https://api.foursquare.com/v2/venues/'+venue_list[k]['id']+'/herenow?oauth_token=2MBSVSBZNE5LHAA4RKQNXZI1Q30BXD1PR12ALR12KQTPLBF1',
+													dataType: 'json',
+													async: false,
+													success: 	function(patron_data){
+														var patron_list = patron_data['response']['hereNow']['items'];
+														$.each(patron_list, function(l){
+															m = ((epochtime - patron_list[l]['createdAt'])/60);
+															if(patron_list[l]['user']['gender'] == 'female'){
+																girl_count = girl_count + 1;
+															}
+															else{
+																guy_count = guy_count + 1;
+															}
+														});
+													}
+												});
+						//Need to append the venue information to the trending_list_dive
+						var venue_html = '<li class="venue"><span class="rank">'+venue_rank+'</span>';
+						venue_html = venue_html + '<span class="venue_name">';
+						venue_html = venue_html + venue_list[k]['name'];
+						venue_html = venue_html + '</span><br/><span class="venue_stats"><span class="icon people_icon">u</span>';
+						venue_html = venue_html + (girl_count + guy_count);
+						venue_html = venue_html	+ ' | <span class="icon graph_icon">C</span>'+ Math.round((girl_count*100/(girl_count+guy_count))*100)/100 +'%</span>';
+						venue_html = venue_html + '<span id="map_link"><a href="http://maps.google.com/maps?q='+ venue_list[k]["location"]["address"] + '&new&york&ny" target="_blank"/><span class="icon view-button">⬇</span></a></span>';
+						venue_html = venue_html + '<span id="'+ venue_list[k]["id"] + '" class="icon view-button">E</span></li>'
+						
+						$('ul.venue_list').append(venue_html);
+						
+						});
+					}
+	});
+})
+
 </script>
 
 <div class="trending_list">
