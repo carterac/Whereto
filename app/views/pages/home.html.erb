@@ -60,7 +60,7 @@ $(document).ready(function(){
 							venue_html = venue_html + '</a></span><br/><span class="venue_stats"><span class="icon people_icon">u</span>';
 							venue_html = venue_html + (girl_count + guy_count);
 							venue_html = venue_html	+ ' | <span class="icon graph_icon">C</span>'+ Math.round((girl_count*100/(girl_count+guy_count))*100)/100 +'%</span>';
-							venue_html = venue_html + '<span id="map_link"><a href="http://maps.google.com/maps?q='+ venue_list['k']['name'] + ' '+ venue_list[k]["location"]["address"] + ' new york ny" target="_blank"><span class="icon view-button">⬇</span></a></span>';
+							venue_html = venue_html + '<span id="map_link"><a href="http://maps.google.com/maps?q='+ venue_list["k"]["name"] + ' '+ venue_list[k]["location"]["address"] + ' new york ny" target="_blank"><span class="icon view-button">⬇</span></a></span>';
 							venue_html = venue_html + '<span id="'+ venue_list[k]["id"] + '" class="icon view-button">E</span></li>'
 							venue_html = venue_html + '<div class="'+ venue_list[k]["id"] + ' girl_list hidden">';
 							venue_html = venue_html + '<ul class="patron_list" id="' + venue_list[k]["id"] + '">';
