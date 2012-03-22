@@ -34,7 +34,7 @@ footer ul li span.icon:hover {color:#878787;}
 
 .trending_list ul.patron_list {display:inline-block;width:100%;padding-top:10px;padding-bottom:10px;height:40px;}
 .trending_list ul.patron_list li.patron {height:60px;line-height:10px;font-size:14px;width:100%;}
-.trending_list ul.patron_list li.patron div.patron_data {line-height:15px;padding-left:5px;display:inline-block;height:40px;float:left;padding-top:10px;padding-bottom:10px;}
+.trending_list ul.patron_list li.patron div.patron_data {line-height:15px;padding-left:5px;display:inline-block;height:40px;float:left;padding-top:10px;padding-bottom:10px;overflow:hidden;}
 .trending_list ul.patron_list li.patron span.name {height:60px;font-weight:bold;color:#ff0000;text-align:center;font-size:14px;}
 .trending_list ul.patron_list li.patron img{vertical-align:middle;float:left;}
 .trending_list ul.patron_list li.hidden {display:none;}

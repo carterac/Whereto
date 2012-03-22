@@ -1,6 +1,8 @@
 <script type="text/javascript">
 var lat = 40.718493; //Global variables for lat/long by default in the E.Village/LES area
 var long = -73.993177;
+var current_time = new Date();
+var epochtime = current_time.getTime();
 var categories = ["Bar","Sports Bar","Dive Bar","Pub","Restaurant","Nightclub"]
 
 $(document).ready(function(){
@@ -22,6 +24,7 @@ $(document).ready(function(){
 		success: 	function(venue_data){
 						var venue_list = venue_data['response']['venues'];
 						$.each(venue_list, 	function(k){
+							var patron_list = [];
 												venue_rank = venue_rank + 1;
 												//First need to narrow down according to the categories array.
 												//Do that later
@@ -32,14 +35,12 @@ $(document).ready(function(){
 												var guy_count_w = 0;
 												var girl_count = 0;
 												var guy_count = 0;
-												var current_time = new Date();
-												var epochtime = current_time.getTime();
 												$.ajax({
 													url: 'https://api.foursquare.com/v2/venues/'+venue_list[k]['id']+'/herenow?oauth_token=2MBSVSBZNE5LHAA4RKQNXZI1Q30BXD1PR12ALR12KQTPLBF1',
 													dataType: 'json',
 													async: false,
 													success: 	function(patron_data){
-														var patron_list = patron_data['response']['hereNow']['items'];
+														patron_list = patron_data['response']['hereNow']['items'];
 														$.each(patron_list, function(l){
 															m = ((epochtime - patron_list[l]['createdAt'])/60);
 															if(patron_list[l]['user']['gender'] == 'female'){
@@ -51,17 +52,79 @@ $(document).ready(function(){
 														});
 													}
 												});
-						//Need to append the venue information to the trending_list_dive
-						var venue_html = '<li class="venue"><span class="rank">'+venue_rank+'</span>';
-						venue_html = venue_html + '<span class="venue_name">';
-						venue_html = venue_html + venue_list[k]['name'];
-						venue_html = venue_html + '</span><br/><span class="venue_stats"><span class="icon people_icon">u</span>';
-						venue_html = venue_html + (girl_count + guy_count);
-						venue_html = venue_html	+ ' | <span class="icon graph_icon">C</span>'+ Math.round((girl_count*100/(girl_count+guy_count))*100)/100 +'%</span>';
-						venue_html = venue_html + '<span id="map_link"><a href="http://maps.google.com/maps?q='+ venue_list[k]["location"]["address"] + '&new&york&ny" target="_blank"/><span class="icon view-button">⬇</span></a></span>';
-						venue_html = venue_html + '<span id="'+ venue_list[k]["id"] + '" class="icon view-button">E</span></li>'
+							//Need to append the venue information to the trending_list_dive
+							var venue_address = venue_list[k]["location"]["address"].replace(' ','%20');
+							var venue_html = '<li class="venue"><span class="rank">'+venue_rank+'</span>';
+							venue_html = venue_html + '<span class="venue_name"><a href="<%= venues_path %>/'+ venue_list[k]["id"] +'">';
+							venue_html = venue_html + venue_list[k]['name'];
+							venue_html = venue_html + '</a></span><br/><span class="venue_stats"><span class="icon people_icon">u</span>';
+							venue_html = venue_html + (girl_count + guy_count);
+							venue_html = venue_html	+ ' | <span class="icon graph_icon">C</span>'+ Math.round((girl_count*100/(girl_count+guy_count))*100)/100 +'%</span>';
+							venue_html = venue_html + '<span id="map_link"><a href="http://maps.google.com/maps?q='+ venue_list[k]["location"]["address"] + ' new york ny" target="_blank"><span class="icon view-button">⬇</span></a></span>';
+							venue_html = venue_html + '<span id="'+ venue_list[k]["id"] + '" class="icon view-button">E</span></li>'
+							venue_html = venue_html + '<div class="'+ venue_list[k]["id"] + ' girl_list hidden">';
+							venue_html = venue_html + '<ul class="patron_list" id="' + venue_list[k]["id"] + '">';
+							
+							var patron_count = 0;
+							$.each(patron_list, function(l){
+								if(patron_list[l]['user']['gender'] == 'female'){}
+									if(patron_count == 0){
+										venue_html = venue_html + '<li class="patron" id="patron_0">';
+										patron_count = patron_count + 1
+									}
+									else{
+										venue_html = venue_html + '<li class="patron hidden" id="patron_'+ patron_count + '">';
+										patron_count = patron_count + 1;
+									}
+									venue_html = venue_html + '<span id="' + patron_list[l]['id'] + '" class="icon left_arrow">←</span>';
+									venue_html = venue_html + '<img src="' + patron_list[l]['user']['photo'] + '" width="40">';
+									venue_html = venue_html + '<div class="patron_data">';
+									venue_html = venue_html + '<span class="name">' + patron_list[l]['user']['firstName'] + ' ' + patron_list[l]['user']['lastName'] + '</span>';
+									venue_html = venue_html + '<br/>Checked in ' + Math.round(((epochtime/(1000) - patron_list[l]['createdAt'])/60)) + ' minutes ago';
+									venue_html = venue_html + '</div>';
+									venue_html = venue_html + '<span id="'+ patron_list[k]['id'] + '" class="icon right_arrow">→</span>';
+									venue_html = venue_html + '</li>';
+							});
+							
+								
+							venue_html = venue_html + '</ul></div>';
+
+
+
 						
-						$('ul.venue_list').append(venue_html);
+							$('ul.venue_list').append(venue_html).bind(function(){
+								var cur_patron = 0;	
+								$("span.view-button").click(function(){
+									var divid = "div." + $(this).attr("id");
+									$(divid).siblings().addClass("hidden");
+									$(divid).slideToggle("slow");
+									cur_patron = 0;
+								});
+
+								$("span.left_arrow").click(function(){
+									var venid = $(this).attr("id");
+									var cur_list = "ul#" + venid;
+									if($(this).parent().index()==0){
+
+									}
+									else{
+										$(this).parent().addClass("hidden");
+										$(this).parent().prev().removeClass("hidden");
+									}
+								});
+
+								$("span.right_arrow").click(function(){
+									var venid = $(this).attr("id");
+									var cur_list = "ul#" + venid;
+									if($(this).parent().index()==$(this).parent().siblings().length-1){
+
+									}
+									else{
+										$(this).parent().addClass("hidden");
+										$(this).parent().next().removeClass("hidden");
+									}
+								});
+							});
 						
 						});
 					}

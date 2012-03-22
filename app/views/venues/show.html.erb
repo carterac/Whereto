@@ -1,5 +1,9 @@
 <div class="venue_page">
+<% if @venue.nil? %>
+<h1>Venue Not Found</h1>
+<% else %>
 <h1><%= @venue.name %></h1>
+<% end %>
 
 <div class="venue_type_canvas">
 	<canvas id="venue_radar_graph" width="320" height="320" style="display:inline-block;"></canvas>
@@ -7,6 +11,7 @@
 
 </div>
 
+<% unless @venue.nil? %>
 <script type="text/javascript">
 
 	//Load the cycle data into the graph
@@ -32,3 +37,4 @@
 	//Render the graph
 	RGraph.Effects.Fade.In(venue_radar_chart);
 </script>
+<% end %>

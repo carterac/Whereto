@@ -7,4 +7,8 @@ class Venue < ActiveRecord::Base
 	validates :name, 				:presence => true
 	
   default_scope :order => 'name ASC'
+  
+  def to_param
+    foursquare_id
+  end
 end
