@@ -6,8 +6,8 @@ var categories = ["Bar","Sports Bar","Dive Bar","Pub","Restaurant","Nightclub"]
 $(document).ready(function(){
 	navigator.geolocation.getCurrentPosition(foundLocation, noLocation);
 	function foundLocation(position){
-	  var lat = position.coords.latitude;
-	  var long = position.coords.longitude;
+	  lat = position.coords.latitude;
+	  long = position.coords.longitude;
 	}
 	function noLocation(){
 	  alert('Could not find location');
