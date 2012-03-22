@@ -23,4 +23,8 @@ class PagesController < ApplicationController
     @tags = Tag.all
   end
   
+  def search
+    @title = "Find a Venue"
+  end
+  
 end

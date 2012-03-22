@@ -6,6 +6,7 @@ Whereto::Application.routes.draw do
   
   match '/history', :to => 'pages#history'
   match '/home', :to => 'pages#home'
+  match '/search', :to => 'pages#search'
   match '/tags', :to => 'pages#tags'
   match '/dbcounts', :to => 'pages#dbcounts'
 
