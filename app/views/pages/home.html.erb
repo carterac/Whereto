@@ -8,8 +8,9 @@ var categories = ["Bar","Sports Bar","Dive Bar","Pub","Restaurant","Nightclub"]
 $(document).ready(function(){
 	navigator.geolocation.getCurrentPosition(foundLocation, noLocation);
 	function foundLocation(position){
-	  lat = position.coords.latitude;
-	  long = position.coords.longitude;
+	  	lat = position.coords.latitude;
+	  	long = position.coords.longitude;
+		alert(lat + ' ' + long);
 	}
 	function noLocation(){
 	  alert('Could not find location');
@@ -38,7 +39,7 @@ $(document).ready(function(){
 												$.ajax({
 													url: 'https://api.foursquare.com/v2/venues/'+venue_list[k]['id']+'/herenow?oauth_token=2MBSVSBZNE5LHAA4RKQNXZI1Q30BXD1PR12ALR12KQTPLBF1',
 													dataType: 'json',
-													async: true,
+													async: false,
 													success: 	function(patron_data){
 														patron_list = patron_data['response']['hereNow']['items'];
 														$.each(patron_list, function(l){
