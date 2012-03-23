@@ -41,16 +41,14 @@ $(document).ready(function(){
 										if(good_category==1){
 											return false;
 										}
-										if(venue_categories[z]==categories[y]){
+										if(venue_categories[z].localeCompare(categories[y])==0){
 											good_category = 1;
 											return false;
 										}
 									});
 								});
-							  	  		
-								
 
-						      	if(good_category==1){
+						      	if(good_category==0){
 							
 									//Second need to collect all the patrons and calculate ratios, survivors, etc.
 									var girl_count_w = 0;
