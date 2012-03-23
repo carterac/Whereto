@@ -89,7 +89,7 @@ $(document).ready(function(){
 							
 									var patron_count = 0;
 									$.each(patron_list, function(l){
-										if(patron_list[l]['user']['gender'] == 'female'){}
+										if(patron_list[l]['user']['gender'] == 'female'){
 											if(patron_count == 0){
 												patron_html = patron_html + '<li class="patron" id="patron_0">';
 												patron_count = patron_count + 1
@@ -106,6 +106,7 @@ $(document).ready(function(){
 											patron_html = patron_html + '</div>';
 											patron_html = patron_html + '<span id="'+ venue_list[k]['id'] + '" class="icon right_arrow">→</span>';
 											patron_html = patron_html + '</li>';
+										}
 									});
 							
 								
